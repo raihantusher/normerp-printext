@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerModal"
                 data-bs-whatever="@mdo">Open modal for @mdo
         </button>
 
@@ -164,7 +164,7 @@
 </main>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -283,8 +283,8 @@
 
                   $('#customerForm').submit(function(e) {
                     e.preventDefault(); // Prevent default form submission
-                    console.log("form")
-                    var formData = $(this).serialize(); // Serializes all form fields
+
+                    //var formData = $(this).serialize(); // Serializes all form fields
                     // Get form data
                     var formData = {
                       customr_name: $('#customer_name').val(),
@@ -305,6 +305,7 @@
                        //data: JSON.stringify(formData),
                       success: function(response) {
                         console.log('Success:', response);
+                          $('#customerModal').modal('hide');
                         // Handle success (e.g., show success message)
                         //$('#success-message').show();
                       },
