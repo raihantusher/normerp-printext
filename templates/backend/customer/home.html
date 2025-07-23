@@ -1,0 +1,335 @@
+{% extends 'backend/dashboard_base.html' %}
+
+{% block content %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Customers</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item active">Customers</li>
+        </ol>
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Primary Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">Warning Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Success Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">Danger Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                data-bs-whatever="@mdo">Open modal for @mdo
+        </button>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                DataTable Example
+            </div>
+            <div class="card-body">
+                <table id="customerTable">
+                    <thead>
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Customer Name</th>
+                        <th>Owner Name</th>
+                        <th>Price</th>
+                        <th>Remarks</th>
+                        <th>Actions</th>
+
+
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer Name</th>
+                        <th>Owner Name</th>
+                        <th>Price</th>
+                        <th>Remarks</th>
+                        <th>Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h2 class="mb-4">Registration Form</h2>
+                    <form>
+                        <div class="row">
+                            <!-- Left Column -->
+                            <div class="col-md-6">
+                                <!-- Text Input -->
+                                <div class="mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName"
+                                           placeholder="Enter your first name">
+                                </div>
+
+                                <!-- Email Input -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                                </div>
+
+                                <!-- Select Dropdown -->
+                                <div class="mb-3">
+                                    <label for="country" class="form-label">Country</label>
+                                    <select class="form-select" id="country">
+                                        <option selected>Select your country</option>
+                                        <option value="1">United States</option>
+                                        <option value="2">Canada</option>
+                                        <option value="3">United Kingdom</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="col-md-6">
+                                <!-- Text Input -->
+                                <div class="mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName"
+                                           placeholder="Enter your last name">
+                                </div>
+
+                                <!-- Password Input -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password">
+                                    <div class="form-text">Must be at least 8 characters long</div>
+                                </div>
+
+                                <!-- Phone Input -->
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="+1 (123) 456-7890">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Full-width elements below columns -->
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms">
+                            <label class="form-check-label" for="terms">I agree to the terms and conditions</label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="customerForm" method="post">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="customer_name" class="col-form-label">Company Name:</label>
+                        <input type="text" class="form-control" id="customer_name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="customer_name" class="col-form-label">Owner Name:</label>
+                        <input type="text" class="form-control" id="owner_name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="customer_name" class="col-form-label">Price:</label>
+                        <input type="text" class="form-control" id="price_per_meter">
+                    </div>
+                    <div class="mb-3">
+                        <label for="customer_name" class="col-form-label">Remarks:</label>
+                        <input type="text" class="form-control" id="remarks">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send message</button>
+                    <input type="submit" value="Send Request" class="btn btn-primary"/>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+
+{{ block.super }}
+
+<script>
+    $(document).ready(function() {
+         let options = {
+                    searchable: true,
+                    perPage: 100,
+
+                };
+        let dataTable = new simpleDatatables.DataTable("#customerTable", options);
+
+        function displayData(data) {  dataTable.insert(data); }
+
+        $.ajax({
+              type: 'GET',
+              url: '/api/customers/',
+              success: function(response) {
+                console.log( response);
+
+                // get request
+                // process and display data into table
+                const convertKeys = (data) => {
+                      return data.map(item => ({
+                        "ID": item.id,
+                        "Customer Name": item.customr_name,
+                        "Owner Name": item.owner_name,
+                        "Price": item.price_per_meter,
+                        "Remarks": item.remarks,
+                        "Actions": `
+                            <button class="edit-btn" data-id="${item.id}">Edit</button>
+                            <button class="delete-btn" data-id="${item.id}">Delete</button>
+                            `
+                      }));
+                    };
+                 const convertedData = convertKeys(response);
+                 dataTable.insert(convertedData);
+              },
+              error: function(xhr, status, error) {
+                console.error('Error:', error);
+                //$('#error-message').text('Failed to load data: ' + error).show();
+              }
+            });
+
+
+            // Edit button click
+              document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('edit-btn')) {
+                  const rowID = e.target.getAttribute('data-id');
+                  const rowData = dataTable.data.data[rowIndex];
+                  console.log(rowID)
+                  //openEditModal(rowData, rowIndex);
+                }
+
+                if (e.target.classList.contains('delete-btn')) {
+                  const rowID = e.target.getAttribute('data-id');
+                  console.log(rowID)
+
+                   const rowToRemove = e.target.closest('tr'); // Get the closest row
+                   dataTable.rows.remove(parseInt(rowToRemove.dataset.index));
+
+
+                  deleteRow(rowID);
+                }
+              });
+
+              const deleteRow = (rowIndex) => {
+                  if (confirm('Are you sure you want to delete this row?')) {
+                    // Remove from table
+                    //dataTable.rows().remove(rowIndex);
+
+                    // If you need to sync with server:
+                    fetch(`/api/customers/${rowIndex}/`, { method: 'DELETE' })
+                      .then(response => {
+                        if (response.ok) {
+                          // remove(rowIndex);
+                        }
+                      });
+                  }
+                };
+
+                function remove(rowIndex) { dataTable.rows.remove(rowIndex); console.log('hello')}
+
+
+
+
+
+                  $('#customerForm').submit(function(e) {
+                    e.preventDefault(); // Prevent default form submission
+                    console.log("form")
+                    var formData = $(this).serialize(); // Serializes all form fields
+                    // Get form data
+                    var formData = {
+                      customr_name: $('#customer_name').val(),
+                      owner_name: $('#owner_name').val(),
+                      price_per_meter: $('#price_per_meter').val(),
+                      remarks: $('#remarks').val(),
+                    };
+
+                    // Send POST request
+                    $.ajax({
+                      type: 'POST',
+                      url: '/api/customers/',
+                      // headers: {
+                         //   'Authorization': 'Bearer ' + token,
+                          //  'X-Custom-Header': 'value'
+                       //},
+                      data: formData,
+                       //data: JSON.stringify(formData),
+                      success: function(response) {
+                        console.log('Success:', response);
+                        // Handle success (e.g., show success message)
+                        //$('#success-message').show();
+                      },
+                      error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        // Handle error (e.g., show error message)
+                        //$('#error-message').text('An error occurred: ' + error).show();
+                      }
+                    });
+                  });
+
+
+
+    });
+</script>
+{% endblock %}
