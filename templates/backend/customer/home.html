@@ -269,7 +269,7 @@
                     //dataTable.rows().remove(rowIndex);
 
                     // If you need to sync with server:
-                    fetch(`/api/customers/${rowIndex}/`, { method: 'DELETE' })
+                    fetch(`/api/customers/${rowID}/`, { method: 'DELETE' })
                       .then(response => {
                         if (response.ok) {
                             const rowToRemove = e.target.closest('tr'); // Get the closest row
@@ -277,10 +277,6 @@
                         }
                       });
                   }
-
-
-
-                  deleteRow(rowID);
                 }
               });
 
