@@ -264,16 +264,7 @@
                   const rowID = e.target.getAttribute('data-id');
                   console.log(rowID)
 
-                   const rowToRemove = e.target.closest('tr'); // Get the closest row
-                   dataTable.rows.remove(parseInt(rowToRemove.dataset.index));
-
-
-                  deleteRow(rowID);
-                }
-              });
-
-              const deleteRow = (rowIndex) => {
-                  if (confirm('Are you sure you want to delete this row?')) {
+                   if (confirm('Are you sure you want to delete this row?')) {
                     // Remove from table
                     //dataTable.rows().remove(rowIndex);
 
@@ -281,16 +272,17 @@
                     fetch(`/api/customers/${rowIndex}/`, { method: 'DELETE' })
                       .then(response => {
                         if (response.ok) {
-                          // remove(rowIndex);
+                            const rowToRemove = e.target.closest('tr'); // Get the closest row
+                            dataTable.rows.remove(parseInt(rowToRemove.dataset.index));
                         }
                       });
                   }
-                };
-
-                function remove(rowIndex) { dataTable.rows.remove(rowIndex); console.log('hello')}
 
 
 
+                  deleteRow(rowID);
+                }
+              });
 
 
                   $('#customerForm').submit(function(e) {
