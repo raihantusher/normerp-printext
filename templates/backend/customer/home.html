@@ -220,6 +220,16 @@
 
         function displayData(data) {  dataTable.insert(data); }
 
+        /*
+        * make add customer form empty after submission
+        */
+        function makeEmptyForm() {
+                $('#customer_name').val('');
+                $('#owner_name').val('');
+                $('#price_per_meter').val(0);
+                $('#remarks').val('');
+        }
+
         $.ajax({
               type: 'GET',
               url: '/api/customers/',
@@ -305,6 +315,7 @@
                        //data: JSON.stringify(formData),
                       success: function(response) {
                         console.log('Success:', response);
+                          makeEmptyForm();
                           $('#customerModal').modal('hide');
                         // Handle success (e.g., show success message)
                         //$('#success-message').show();
