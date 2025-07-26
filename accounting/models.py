@@ -89,6 +89,7 @@ class Transaction(models.Model):
 class Journal(models.Model):
     account = models.ForeignKey(Accounting_Account, on_delete=models.CASCADE, related_name='journal_entries')
     transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE, related_name='journal_entries')
+    ref    = models.CharField(blank=True, null=True)
     debit = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     credit = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     description = models.CharField(max_length=255, blank=True)
