@@ -46,76 +46,73 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Customer Payment Form</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <!-- Customer Selection -->
+                            <div class="mb-4">
+                                <label for="customerSelect" class="form-label fw-bold">Select Customer</label>
+                                <select class="form-select" id="customerSelect" required>
+                                    <option value="" selected disabled>Choose customer...</option>
+                                    <option value="1001">John Doe (ID: 1001)</option>
+                                    <option value="1002">Jane Smith (ID: 1002)</option>
+                                    <option value="1003">Robert Johnson (ID: 1003)</option>
+                                    <option value="1004">Emily Davis (ID: 1004)</option>
+                                </select>
+                                <div class="form-text">Can't find the customer? <a href="#">Add new customer</a></div>
+                            </div>
 
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <h2 class="mb-4">Registration Form</h2>
-                    <form>
-                        <div class="row">
-                            <!-- Left Column -->
-                            <div class="col-md-6">
-                                <!-- Text Input -->
-                                <div class="mb-3">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="firstName"
-                                           placeholder="Enter your first name">
-                                </div>
+                            <!-- Debit Account -->
+                            <div class="mb-4">
+                                <label for="debitAccount" class="form-label fw-bold">Debit Account</label>
+                                <select class="form-select" id="debitAccount" required>
+                                    <option value="" selected disabled>Select account to debit...</option>
+                                    <option value="cash">Cash Account</option>
+                                    <option value="checking">Checking Account (****4567)</option>
+                                    <option value="savings">Savings Account (****8910)</option>
+                                    <option value="credit">Credit Card (****3456)</option>
+                                </select>
+                            </div>
 
-                                <!-- Email Input -->
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
-                                </div>
-
-                                <!-- Select Dropdown -->
-                                <div class="mb-3">
-                                    <label for="country" class="form-label">Country</label>
-                                    <select class="form-select" id="country">
-                                        <option selected>Select your country</option>
-                                        <option value="1">United States</option>
-                                        <option value="2">Canada</option>
-                                        <option value="3">United Kingdom</option>
-                                    </select>
+                            <!-- Payment Amount -->
+                            <div class="mb-4">
+                                <label for="paymentAmount" class="form-label fw-bold">Payment Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="paymentAmount" placeholder="0.00"
+                                           step="0.01" min="0" required>
                                 </div>
                             </div>
 
-                            <!-- Right Column -->
-                            <div class="col-md-6">
-                                <!-- Text Input -->
-                                <div class="mb-3">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName"
-                                           placeholder="Enter your last name">
-                                </div>
-
-                                <!-- Password Input -->
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password">
-                                    <div class="form-text">Must be at least 8 characters long</div>
-                                </div>
-
-                                <!-- Phone Input -->
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phone" placeholder="+1 (123) 456-7890">
-                                </div>
+                            <!-- Payment Date -->
+                            <div class="mb-4">
+                                <label for="paymentDate" class="form-label fw-bold">Payment Date</label>
+                                <input type="date" class="form-control" id="paymentDate" required>
                             </div>
-                        </div>
 
-                        <!-- Full-width elements below columns -->
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="terms">
-                            <label class="form-check-label" for="terms">I agree to the terms and conditions</label>
-                        </div>
+                            <!-- Payment Reference -->
+                            <div class="mb-4">
+                                <label for="paymentReference" class="form-label fw-bold">Payment Reference</label>
+                                <input type="text" class="form-control" id="paymentReference"
+                                       placeholder="Invoice #, Receipt #, etc.">
+                            </div>
 
-                        <!-- Submit Button -->
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
+
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <button type="reset" class="btn btn-outline-secondary me-md-2">Clear Form</button>
+                                <button type="submit" class="btn btn-primary">Process Payment</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,14 +167,7 @@
 
 <script>
     $(document).ready(function() {
-         let options = {
-                    searchable: true,
-                    perPage: 100,
 
-                };
-        let dataTable = new simpleDatatables.DataTable("#customerTable", options);
-
-        function displayData(data) {  dataTable.insert(data); }
 
         /*
         * make add customer form empty after submission
@@ -197,21 +187,7 @@
 
                 // get request
                 // process and display data into table
-                const convertKeys = (data) => {
-                      return data.map(item => ({
-                        "ID": item.id,
-                        "Customer Name": item.customr_name,
-                        "Owner Name": item.owner_name,
-                        "Price": item.price_per_meter,
-                        "Remarks": item.remarks,
-                        "Actions": `
-                            <button class="edit-btn" data-id="${item.id}">Edit</button>
-                            <button class="delete-btn" data-id="${item.id}">Delete</button>
-                            `
-                      }));
-                    };
-                 const convertedData = convertKeys(response);
-                 dataTable.insert(convertedData);
+                displayData(response)
               },
               error: function(xhr, status, error) {
                 console.error('Error:', error);
@@ -220,72 +196,20 @@
             });
 
 
-            // Edit button click
-              document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('edit-btn')) {
-                  const rowID = e.target.getAttribute('data-id');
-                  const rowData = dataTable.data.data[rowIndex];
-                  console.log(rowID)
-                  //openEditModal(rowData, rowIndex);
-                }
+            function displayData(data) {
+                // Example: Display data in a table or list
+                var $container = $('#customerSelect');
+                $container.empty(); // Clear previous data
 
-                if (e.target.classList.contains('delete-btn')) {
-                  const rowID = e.target.getAttribute('data-id');
-                  console.log(rowID)
-
-                   if (confirm('Are you sure you want to delete this row?')) {
-                    // Remove from table
-                    //dataTable.rows().remove(rowIndex);
-
-                    // If you need to sync with server:
-                    fetch(`/api/customers/${rowID}/`, { method: 'DELETE' })
-                      .then(response => {
-                        if (response.ok) {
-                            const rowToRemove = e.target.closest('tr'); // Get the closest row
-                            dataTable.rows.remove(parseInt(rowToRemove.dataset.index));
-                        }
-                      });
-                  }
-                }
-              });
-
-
-                  $('#customerForm').submit(function(e) {
-                    e.preventDefault(); // Prevent default form submission
-
-                    //var formData = $(this).serialize(); // Serializes all form fields
-                    // Get form data
-                    var formData = {
-                      customr_name: $('#customer_name').val(),
-                      owner_name: $('#owner_name').val(),
-                      price_per_meter: $('#price_per_meter').val(),
-                      remarks: $('#remarks').val(),
-                    };
-
-                    // Send POST request
-                    $.ajax({
-                      type: 'POST',
-                      url: '/api/customers/',
-                      // headers: {
-                         //   'Authorization': 'Bearer ' + token,
-                          //  'X-Custom-Header': 'value'
-                       //},
-                      data: formData,
-                       //data: JSON.stringify(formData),
-                      success: function(response) {
-                        console.log('Success:', response);
-                          makeEmptyForm();
-                          $('#customerModal').modal('hide');
-                        // Handle success (e.g., show success message)
-                        //$('#success-message').show();
-                      },
-                      error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                        // Handle error (e.g., show error message)
-                        //$('#error-message').text('An error occurred: ' + error).show();
-                      }
-                    });
+                if (Array.isArray(data)) {
+                  $.each(data, function(index, item) {
+                    $container.append(`<option class="item" value="${item.id}">  ${item.customr_name}  </option>`);
+                    //$container.append('<option value="${item.id}>${item.customer_name}</option>');
                   });
+                } else {
+                  $container.append('<div>' + JSON.stringify(data) + '</div>');
+                }
+              }
 
 
 
