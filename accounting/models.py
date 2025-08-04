@@ -33,33 +33,62 @@ class Accounting_Account(models.Model):
     def __str__(self):
         return f"{self.code} - {self.name} - {self.balance}"
 
-    def get_balance(self):
+    def get_balance(self, from_date=None, to_date=None):
         """
-        Calculate current account balance based on all journal entries
+        Calculate account balance, optionally filtered by date range
         Returns a dictionary with debit, credit, and balance amounts
+
+        Args:
+            from_date (date, optional): Start date of the period (inclusive)
+            to_date (date, optional): End date of the period (inclusive)
         """
-        # Get sum of all debits and credits for this account
-        result = self.journal_entries.aggregate(
-            total_debit=Coalesce(Sum('debit'), Decimal('0')),
-            total_credit=Coalesce(Sum('credit'), Decimal('0'))
+        # Filter journal entries if dates are provided
+        journal_entries = self.journal_entries.all()
+
+        if from_date and to_date:
+            journal_entries = journal_entries.filter(date__range=[from_date, to_date])
+        elif from_date:
+            journal_entries = journal_entries.filter(date__gte=from_date)
+        elif to_date:
+            journal_entries = journal_entries.filter(date__lte=to_date)
+
+        # Get sum of all debits and credits
+        result = journal_entries.aggregate(
+            total_debit=Coalesce(Sum('debit'), Decimal('0'), output_field=DecimalField()),
+            total_credit=Coalesce(Sum('credit'), Decimal('0'), output_field=DecimalField())
         )
 
-
-        # Determine balance based on account category type
-        if self.category.category_type in ['A', 'X']:  # Assets and Expenses
-            balance = self.opening_balance + result['total_debit'] - result['total_credit']
-        else:  # Liabilities, Equity, and Income
-            balance = self.opening_balance + result['total_credit'] - result['total_debit']
+        # For date range, we typically want just the activity during the period
+        if from_date or to_date:
+            if self.category.category_type in ['A', 'X']:  # Assets and Expenses
+                balance = result['total_debit'] - result['total_credit']
+            else:  # Liabilities, Equity, and Income
+                balance = result['total_credit'] - result['total_debit']
+        else:
+            # For full balance (no date range), include opening balance
+            if self.category.category_type in ['A', 'X']:  # Assets and Expenses
+                balance = self.opening_balance + result['total_debit'] - result['total_credit']
+            else:  # Liabilities, Equity, and Income
+                balance = self.opening_balance + result['total_credit'] - result['total_debit']
 
         return {
             'debit': result['total_debit'],
             'credit': result['total_credit'],
-            'balance': balance
+            'balance': balance,
+            'is_period_balance': from_date is not None or to_date is not None
         }
+
+    def get_balance_as_of(self, as_of_date):
+        """Get balance up to and including a specific date (includes opening balance)"""
+        return self.get_balance(to_date=as_of_date)
+
+    def get_period_balance(self, from_date, to_date):
+        """Get balance for a specific period only (excludes opening balance)"""
+        return self.get_balance(from_date=from_date, to_date=to_date)
 
     @property
     def balance(self):
-        """Property to easily access the current balance"""
+        """Property to easily access the current balance (all transactions)"""
         return self.get_balance()['balance']
 
 
