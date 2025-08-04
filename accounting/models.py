@@ -5,6 +5,7 @@ from decimal import Decimal
 
 class Category(models.Model):
     name = models.CharField(max_length=30)
+    sort = models.IntegerField(default=0, null=True, blank=True)
     type_choices = [
         ('A', 'Asset'),
         ('L', 'Liability'),
@@ -21,7 +22,8 @@ class Category(models.Model):
 class Accounting_Account(models.Model):
     name = models.CharField(max_length=30)
     code = models.CharField(max_length=10, unique=True)
-    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    sort = models.IntegerField(default=0, null=True, blank=True)
+    category = models.ForeignKey(Category, related_name='accounts', null=True, on_delete=models.SET_NULL)
     opening_balance = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     is_active = models.BooleanField(default=True)
 
@@ -29,7 +31,7 @@ class Accounting_Account(models.Model):
         ordering = ['code']
 
     def __str__(self):
-        return f"{self.code} - {self.name}"
+        return f"{self.code} - {self.name} - {self.balance}"
 
     def get_balance(self):
         """
@@ -58,7 +60,7 @@ class Accounting_Account(models.Model):
     @property
     def balance(self):
         """Property to easily access the current balance"""
-        return self.get_balance()[1]['balance']
+        return self.get_balance()['balance']
 
 
 class Transaction(models.Model):
@@ -92,7 +94,7 @@ class Journal(models.Model):
     ref    = models.CharField(blank=True, null=True)
     debit = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     credit = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    description = models.CharField(max_length=255, blank=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         ordering = ['transaction__date', 'id']
