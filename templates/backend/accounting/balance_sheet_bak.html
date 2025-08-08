@@ -1,0 +1,187 @@
+{% extends 'backend/dashboard_base.html' %}
+
+{% block styles %}
+    {{ block.super }}
+<style>
+    .balance-sheet-header {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+    }
+    .section-title {
+        background-color: #e9ecef;
+        font-weight: bold;
+    }
+    .total-row {
+        font-weight: bold;
+        background-color: #f8f9fa;
+    }
+    .balance-sheet-card {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Customers</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item active">Customers</li>
+        </ol>
+
+    </div>
+
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card balance-sheet-card">
+                    <!-- Header -->
+                    <div class="card-header balance-sheet-header text-center">
+                        <h2 class="mb-0">Balance Sheet</h2>
+                        <h4 class="mb-0">As of December 31, 2023</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Assets Column -->
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr class="section-title">
+                                        <th colspan="2">Assets</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Current Assets -->
+                                    <tr>
+                                        <td colspan="2" class="fw-bold">Current Assets</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cash & Cash Equivalents</td>
+                                        <td class="text-end">$50,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Accounts Receivable</td>
+                                        <td class="text-end">$30,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inventory</td>
+                                        <td class="text-end">$20,000</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td>Total Current Assets</td>
+                                        <td class="text-end">$100,000</td>
+                                    </tr>
+
+                                    <!-- Fixed Assets -->
+                                    <tr>
+                                        <td colspan="2" class="fw-bold">Fixed Assets</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Property, Plant & Equipment</td>
+                                        <td class="text-end">$150,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Less: Accumulated Depreciation</td>
+                                        <td class="text-end">($30,000)</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td>Net Fixed Assets</td>
+                                        <td class="text-end">$120,000</td>
+                                    </tr>
+
+                                    <!-- Total Assets -->
+                                    <tr class="table-success total-row">
+                                        <td>Total Assets</td>
+                                        <td class="text-end">$220,000</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Liabilities & Equity Column -->
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr class="section-title">
+                                        <th colspan="2">Liabilities & Equity</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Liabilities -->
+                                    <tr>
+                                        <td colspan="2" class="fw-bold">Current Liabilities</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Accounts Payable</td>
+                                        <td class="text-end">$25,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Short-Term Debt</td>
+                                        <td class="text-end">$15,000</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td>Total Current Liabilities</td>
+                                        <td class="text-end">$40,000</td>
+                                    </tr>
+
+                                    <!-- Long-Term Liabilities -->
+                                    <tr>
+                                        <td colspan="2" class="fw-bold">Long-Term Liabilities</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Long-Term Debt</td>
+                                        <td class="text-end">$80,000</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td>Total Liabilities</td>
+                                        <td class="text-end">$120,000</td>
+                                    </tr>
+
+                                    <!-- Equity -->
+                                    <tr>
+                                        <td colspan="2" class="fw-bold">Equity</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Common Stock</td>
+                                        <td class="text-end">$50,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Retained Earnings</td>
+                                        <td class="text-end">$50,000</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td>Total Equity</td>
+                                        <td class="text-end">$100,000</td>
+                                    </tr>
+
+                                    <!-- Total Liabilities & Equity -->
+                                    <tr class="table-success total-row">
+                                        <td>Total Liabilities & Equity</td>
+                                        <td class="text-end">$220,000</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+
+{% block scripts %}
+
+{{ block.super }}
+
+<script>
+    $(document).ready(function() {
+
+    }
+</script>
+{% endblock %}
