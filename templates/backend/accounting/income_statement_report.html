@@ -1,0 +1,59 @@
+<div class="col-md-3" style="font-size:11px">
+    <div class="card shadow">
+        <div class="card-body">
+            <!-- Revenue Section -->
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th colspan="2">Revenue</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for rev in income %}
+                <tr>
+                    <td>{{ rev.account.name }}</td>
+                    <td class="text-end">{{ rev.amount }}</td>
+                </tr>
+                {% endfor %}
+
+                <tr class="table-active fw-bold">
+                    <td>Total Revenue</td>
+                    <td class="text-end">{{ total_income }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Expenses Section -->
+            <table class="table table-bordered mt-4">
+                <thead class="table-light">
+                <tr>
+                    <th colspan="2">Expenses</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for exp in expenses %}
+                <tr>
+                    <td>{{ exp.account.name }}</td>
+                    <td class="text-end">{{ exp.amount }}</td>
+                </tr>
+                {% endfor %}
+
+                <tr class="table-active fw-bold">
+                    <td>Total Expenses</td>
+                    <td class="text-end">{{ total_expenses }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Net Income Section -->
+            <table class="table table-bordered mt-4">
+                <tbody>
+                <tr class="table-success fw-bold">
+                    <td>Net Income</td>
+                    <td class="text-end">{{ net_income }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
