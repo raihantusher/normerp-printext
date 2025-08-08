@@ -1,0 +1,143 @@
+{% extends 'backend/dashboard_base.html' %}
+
+{% block styles %}
+    {{ block.super }}
+<style>
+    .balance-sheet-header {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+    }
+    .section-title {
+        background-color: #e9ecef;
+        font-weight: bold;
+    }
+    .total-row {
+        font-weight: bold;
+        background-color: #f8f9fa;
+    }
+    .balance-sheet-card {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Customers</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item active">Customers</li>
+        </ol>
+
+    </div>
+
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card balance-sheet-card">
+                    <!-- Header -->
+                    <div class="card-header balance-sheet-header text-center">
+                        <h2 class="mb-0">Balance Sheet</h2>
+                        <h4 class="mb-0">As of December 31, 2023</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Assets Column -->
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr class="section-title">
+                                        <th colspan="2">Assets</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for asset in assets %}
+                                    <tr>
+                                        <td>{{ asset.account.name }}</td>
+                                        <td class="text-end">{{ asset.balance }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                                                        <!-- Total Assets -->
+                                    <tr class="table-success total-row">
+                                        <td>Total Assets</td>
+                                        <td class="text-end">{{ total_assets }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Liabilities & Equity Column -->
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr class="section-title">
+                                        <th colspan="2">Liabilities & Equity</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Liabilities -->
+                                    {% for liability in liabilities %}
+                                    <tr>
+                                        <td>{{ liability.account.name }}</td>
+                                        <td class="text-end">{{ liability.balance }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr class="total-row">
+                                        <td>Total Liabilities</td>
+                                        <td class="text-end">{{ total_liabilities }}</td>
+                                    </tr>
+
+                                    <!-- Equity -->
+                                    <tr>
+                                        <td colspan="2" class="fw-bold">Equity</td>
+                                    </tr>
+                                    {% for eq in equity %}
+                                    <tr>
+                                        <td>{{ equity.account.name }}</td>
+                                        <td class="text-end">{{ equity.balance }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr class="total-row">
+                                        <td>Total Equity</td>
+                                        <td class="text-end">{{ total_equity }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="fw-bold">Net Income</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Net Income</td>
+                                        <td class="text-end">{{ net_income }}</td>
+                                    </tr>
+
+                                    <!-- Total Liabilities & Equity -->
+                                    <tr class="table-success total-row">
+                                        <td>Total Liabilities & Equity</td>
+                                        <td class="text-end">{{ liabilities_and_equity }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+
+{% block scripts %}
+
+{{ block.super }}
+
+<script>
+    $(document).ready(function() {
+
+    });
+</script>
+{% endblock %}
