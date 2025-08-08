@@ -1,0 +1,132 @@
+{% extends 'backend/dashboard_base.html' %}
+
+{% block styles %}
+ {{ block.super }}
+    <style>
+        .trial-balance-card {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+        .table-header {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .debit-amount, credit{
+            color: #dc3545; /* Red for debits */
+        }
+        .credit-amount, debit {
+            color: #28a745; /* Green for credits */
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    </style>
+ {% endblock %}
+
+{% block content %}
+ <main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Trial Balance</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item active">Customers</li>
+        </ol>
+
+    </div>
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card trial-balance-card">
+                    <!-- Header -->
+                    <div class="card-header text-center">
+                        <h2 class="mb-0">Trial Balance</h2>
+                        <h4 class="mb-0">From: {{ from_date|date:"F d, Y" }}  To Date: {{ to_date|date:"F d, Y" }}</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <!-- Trial Balance Table -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th>Account Code</th>
+                                        <th>Account Name</th>
+                                        <th class="text-end">Debit ($)</th>
+                                        <th class="text-end">Credit ($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Sample Data Rows -->
+                                    {% for acc in accounts %}
+                                    <tr>
+                                        <td>{{ acc.account.code }}</td>
+                                        <td>{{ acc.account.name }}</td>
+                                        <td class="text-end {% if acc.account.is_debit_side %}debit-amount{% endif %}">{% if acc.account.is_debit_side %} {{ acc.account.balance }} {% else %} - {% endif %}</td>
+                                        <td class="text-end {% if not acc.account.is_debit_side %}credit-amount{% endif %}">{% if not acc.account.is_debit_side %} {{ acc.account.balance }} {% else %}-{% endif %}</td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    <!-- Total Row -->
+                                    <tr class="total-row">
+                                        <td colspan="2" class="text-end">Total</td>
+                                        <td class="text-end debit">{{ total_debits }}</td>
+                                        <td class="text-end credit">{{ total_credits }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="alert alert-info mt-3">
+                            <strong>Note:</strong> Debits and credits must balance. If totals don't match, review journal entries.
+                        </div>
+                    </div>
+
+                    <!-- Print Button -->
+                    <div class="card-footer text-end no-print">
+                        <button onclick="window.print()" class="btn btn-primary">
+                            <i class="bi bi-printer-fill"></i> Print Trial Balance
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </main>
+{% endblock %}
+{% block scripts %}
+
+{{ block.super }}
+
+<script>
+
+    $(document).ready(function() {
+            function sum_of_rows(row_class){
+                    const cellsToSum = document.querySelectorAll(row_class);
+
+                    let totalSum = 0;
+                    cellsToSum.forEach(cell => {
+                        const value = parseFloat(cell.textContent); // Or Number(cell.textContent)
+                        if (!isNaN(value)) { // Check if the value is a valid number
+                            totalSum += value;
+                        }
+                     });
+                return totalSum;
+            }
+
+            $('.debit').text(sum_of_rows('.debit-amount'));
+            $('.credit').text(sum_of_rows('.credit-amount'));
+    });
+</script>
+
+{% endblock %}
