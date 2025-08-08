@@ -16,6 +16,7 @@ venv/
 **/__pycache__/
 # Databases
 *.sqlite3
+db.sqlite3
 
 # JavaScript
 node_modules/
