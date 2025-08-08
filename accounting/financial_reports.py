@@ -1,5 +1,7 @@
 from accounting.models import Accounting_Account
 from decimal import Decimal
+from datetime import datetime
+import calendar
 
 def generate_income_statement(from_date, to_date, method='accrual'):
     """
@@ -209,17 +211,13 @@ def generate_trial_balance(as_of_date=None, from_date=None, to_date=None):
         total_debits = Decimal('0')
         total_credits = Decimal('0')
 
-
         for account in accounts:
             balance_info = account.get_period_balance(from_date, to_date)
             debits = balance_info['debit']
-            credits= balance_info['credit']
-
+            credits = balance_info['credit']
 
             if debits == 0 and credits == 0:
                 continue
-
-
 
             trial_balance_data.append({
                 'account': account,
@@ -269,7 +267,6 @@ def generate_trial_balance(as_of_date=None, from_date=None, to_date=None):
                 'credits': credits
             })
 
-
             total_debits += debits
             total_credits += credits
 
@@ -281,7 +278,26 @@ def generate_trial_balance(as_of_date=None, from_date=None, to_date=None):
         }
 
 
+def yearly_basis_income_statement(year):
 
+    print(f"First and last days of each month in {year}:")
+    print("-" * 50)
+    print(f"{'Month':<15}{'First Day':<15}{'Last Day':<15}")
+    print("-" * 50)
+
+    for month in range(1, 13):
+        # Get first day (always the 1st)
+        first_day = datetime(year, month, 1)
+
+        # Get last day by finding the number of days in the month
+        _, last_day_num = calendar.monthrange(year, month)
+        last_day = datetime(year, month, last_day_num)
+
+        # Format the output
+        month_name = calendar.month_name[month]
+        print(f"{month_name:<15}{first_day.strftime('%Y-%m-%d'):<15}{last_day.strftime('%Y-%m-%d'):<15}")
+
+    return 0
 '''
 from datetime import date
 

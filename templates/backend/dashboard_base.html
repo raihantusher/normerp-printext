@@ -13,11 +13,63 @@
     <link href="{% static 'backend/css/styles.css' %}" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     {% endblock %}
+
+    {% block dashboard %}
+    <style>
+        .card-header {
+            font-weight: 600;
+        }
+        .amount {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .down-arrow {
+            color: #dc3545;
+        }
+        .receivables-card {
+            border-top: 4px solid #0d6efd;
+        }
+        .payables-card {
+            border-top: 4px solid #fd7e14;
+        }
+
+         .cash-amount {
+            font-size: .9rem;
+            font-weight: 600;
+        }
+        .positive {
+            color: #198754;
+        }
+        .negative {
+            color: #dc3545;
+        }
+        .equal {
+            color: #0d6efd;
+        }
+        .cash-label {
+            font-size: 0.7rem;
+            color: #6c757d;
+        }
+        .card-footer {
+            background-color: #f8f9fa;
+        }
+        .divider {
+            border-top: 1px dashed #dee2e6;
+            margin: 0.5rem 0;
+        }
+    </style>
+        {% endblock %}
+
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand ps-3" href="index.html">PrinteX</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
             class="fas fa-bars"></i></button>
@@ -148,7 +200,7 @@
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                Start Bootstrap
+                {{ request.user.username }}
             </div>
         </nav>
     </div>
@@ -177,12 +229,16 @@
         crossorigin="anonymous"></script>
 <script src="{% static 'backend/js/scripts.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<!--<script src="{% static 'backend/assets/demo/chart-area-demo.js' %}"></script>-->
-<!--<script src="{% static 'backend/assets/demo/chart-bar-demo.js' %}"></script>-->
+
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
 <!--<script src="{% static 'backend/js/datatables-simple-demo.js' %}"></script>-->
 
+{% endblock %}
+
+{% block chartjs %}
+<script src="{% static 'backend/assets/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'backend/assets/demo/chart-bar-demo.js' %}"></script>
 {% endblock %}
 </body>
 </html>
