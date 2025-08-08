@@ -3,7 +3,7 @@ def __getattr__(name):
     if name == 'CustomerSerializer':
         from .customer_srializer import CustomerSerializer
         return CustomerSerializer
-    # elif name == 'ProductSerializer':
-    #     from .product_serializers import ProductSerializer
-    #     return ProductSerializer
+    elif name == 'AssetSerializer':
+        from .Accounting_serializer import AssetSerializer
+        return AssetSerializer
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
