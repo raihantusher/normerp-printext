@@ -33,6 +33,13 @@ class Accounting_Account(models.Model):
     def __str__(self):
         return f"{self.code} - {self.name} - {self.balance}"
 
+    @property
+    def is_debit_side(self):
+        if self.category.category_type in ['A', 'X']:  # Assets and Expenses
+            return True
+        else:  # Liabilities, Equity, and Income
+            return False
+
     def get_balance(self, from_date=None, to_date=None):
         """
         Calculate account balance, optionally filtered by date range
@@ -124,7 +131,7 @@ class Journal(models.Model):
     debit = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     credit = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     description = models.CharField(max_length=255, blank=True, null=True)
-
+    date = models.DateTimeField()
     class Meta:
         ordering = ['transaction__date', 'id']
 
