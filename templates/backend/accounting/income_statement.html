@@ -1,0 +1,47 @@
+{% extends 'backend/dashboard_base.html' %}
+
+{% block content %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Income Statement</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item">Account Section</li>
+            <li class="breadcrumb-item active">Income Statement</li>
+        </ol>
+
+    </div>
+
+    <div class="container py-2">
+
+        <div class="row">
+            <div id="income-statement"></div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+
+{% block scripts %}
+
+{{ block.super }}
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '{% url 'income_statement_report' %}', // Replace with your target URL
+            type: 'GET',
+            dataType: 'html', // Specify that you expect HTML data
+            success: function(data) {
+                // 'data' will contain the entire HTML content of the remote page
+                // Now, parse and extract the desired element
+                console.log(data)
+                $('#income-statement').html(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error fetching URL:", textStatus, errorThrown);
+            }
+        });
+    });
+</script>
+{% endblock %}
