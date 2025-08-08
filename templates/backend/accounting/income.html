@@ -62,10 +62,6 @@
                                 <label for="customerSelect" class="form-label fw-bold">Select Customer</label>
                                 <select class="form-select" id="customerSelect" required>
                                     <option value="" selected disabled>Choose customer...</option>
-                                    <option value="1001">John Doe (ID: 1001)</option>
-                                    <option value="1002">Jane Smith (ID: 1002)</option>
-                                    <option value="1003">Robert Johnson (ID: 1003)</option>
-                                    <option value="1004">Emily Davis (ID: 1004)</option>
                                 </select>
                                 <div class="form-text">Can't find the customer? <a href="#">Add new customer</a></div>
                             </div>
@@ -75,10 +71,6 @@
                                 <label for="debitAccount" class="form-label fw-bold">Debit Account</label>
                                 <select class="form-select" id="debitAccount" required>
                                     <option value="" selected disabled>Select account to debit...</option>
-                                    <option value="cash">Cash Account</option>
-                                    <option value="checking">Checking Account (****4567)</option>
-                                    <option value="savings">Savings Account (****8910)</option>
-                                    <option value="credit">Credit Card (****3456)</option>
                                 </select>
                             </div>
 
@@ -104,7 +96,6 @@
                                 <input type="text" class="form-control" id="paymentReference"
                                        placeholder="Invoice #, Receipt #, etc.">
                             </div>
-
 
 
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
@@ -187,7 +178,7 @@
 
                 // get request
                 // process and display data into table
-                displayData(response)
+                displayCustomerData(response)
               },
               error: function(xhr, status, error) {
                 console.error('Error:', error);
@@ -196,14 +187,14 @@
             });
 
 
-            function displayData(data) {
+            function displayCustomerData(data) {
                 // Example: Display data in a table or list
                 var $container = $('#customerSelect');
-                $container.empty(); // Clear previous data
+                //$container.empty(); // Clear previous data
 
                 if (Array.isArray(data)) {
                   $.each(data, function(index, item) {
-                    $container.append(`<option class="item" value="${item.id}">  ${item.customr_name}  </option>`);
+                    $container.append(`<option class="item" value="${item.id}">  ${item.customer_name}  </option>`);
                     //$container.append('<option value="${item.id}>${item.customer_name}</option>');
                   });
                 } else {
@@ -211,6 +202,40 @@
                 }
               }
 
+
+
+
+            $.ajax({
+              type: 'GET',
+              url: '/api/cash-bank/',
+              success: function(response) {
+                console.log( response);
+
+                // get request
+                // process and display data into table
+                displayCashBankData(response)
+              },
+              error: function(xhr, status, error) {
+                console.error('Error:', error);
+                //$('#error-message').text('Failed to load data: ' + error).show();
+              }
+            });
+
+
+            function displayCashBankData(data) {
+                // Example: Display data in a table or list
+                var $container = $('#debitAccount');
+                //$container.empty(); // Clear previous data
+
+                if (Array.isArray(data)) {
+                  $.each(data, function(index, item) {
+                    $container.append(`<option class="item" value="${item.id}">  ${item.name} - ${item.get_balance.balance}  </option>`);
+                    //$container.append('<option value="${item.id}>${item.customer_name}</option>');
+                  });
+                } else {
+                  //$container.append('<div>' + JSON.stringify(data) + '</div>');
+                }
+              }
 
 
     });
