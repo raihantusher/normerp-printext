@@ -241,7 +241,7 @@
                 const convertKeys = (data) => {
                       return data.map(item => ({
                         "ID": item.id,
-                        "Customer Name": item.customr_name,
+                        "Customer Name": item.customer_name,
                         "Owner Name": item.owner_name,
                         "Price": item.price_per_meter,
                         "Remarks": item.remarks,
@@ -297,7 +297,7 @@
                     //var formData = $(this).serialize(); // Serializes all form fields
                     // Get form data
                     var formData = {
-                      customr_name: $('#customer_name').val(),
+                      customer_name: $('#customer_name').val(),
                       owner_name: $('#owner_name').val(),
                       price_per_meter: $('#price_per_meter').val(),
                       remarks: $('#remarks').val(),
