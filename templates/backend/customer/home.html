@@ -48,13 +48,13 @@
         </div>
 
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerModal"
-                data-bs-whatever="@mdo">Open modal for @mdo
+                data-bs-whatever="@mdo">Add New Customers
         </button>
 
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                DataTable Example
+                Customer Table
             </div>
             <div class="card-body">
                 <table id="customerTable">
@@ -265,9 +265,12 @@
               document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('edit-btn')) {
                   const rowID = e.target.getAttribute('data-id');
-                  const rowData = dataTable.data.data[rowIndex];
-                  console.log(rowID)
+                  const rowData = dataTable.data.data[rowID];
+
+                  //console.log(rowID)
                   //openEditModal(rowData, rowIndex);
+                  // If you need to sync with server:
+
                 }
 
                 if (e.target.classList.contains('delete-btn')) {
@@ -302,6 +305,7 @@
                       price_per_meter: $('#price_per_meter').val(),
                       remarks: $('#remarks').val(),
                     };
+                    console.log(formData)
 
                     // Send POST request
                     $.ajax({
@@ -312,7 +316,7 @@
                           //  'X-Custom-Header': 'value'
                        //},
                       data: formData,
-                       //data: JSON.stringify(formData),
+                      //data: JSON.stringify(formData),
                       success: function(response) {
                         console.log('Success:', response);
                           makeEmptyForm();
@@ -332,4 +336,10 @@
 
     });
 </script>
+
+
+{% endblock %}
+
+{% block chartjs %}
+
 {% endblock %}
