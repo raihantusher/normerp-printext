@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .company-info h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .invoice-info {
+            text-align: right;
+        }
+        .invoice-info h2 {
+            color: #3498db;
+            margin-top: 0;
+        }
+        .client-info, .dates {
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 5px 0;
+        }
+        th {
+            background-color: #f8f9fa;
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .totals {
+            margin-left: auto;
+            width: 300px;
+        }
+        .totals table {
+            width: 100%;
+        }
+        .notes {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="company-info">
+            <h1>Your Company Name</h1>
+            <p>123 Business Street<br>
+            City, State 10001<br>
+            Phone: (123) 456-7890<br>
+            Email: info@yourcompany.com</p>
+        </div>
+        <div class="invoice-info">
+            <h2>INVOICE</h2>
+            <p><strong>Invoice #:</strong> INV-001<br>
+            <strong>Date:</strong> [INVOICE_DATE]<br>
+            <strong>Due Date:</strong> [DUE_DATE]</p>
+        </div>
+    </div>
+
+    <div class="client-info">
+        <h3>Bill To:</h3>
+        <p><strong>[CLIENT_NAME]</strong><br>
+        [CLIENT_ADDRESS]</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th class="text-right">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ITEM_ROW -->
+            <tr>
+                <td>[ITEM_DESCRIPTION]</td>
+                <td>[ITEM_QUANTITY]</td>
+                <td>[ITEM_UNIT_PRICE]</td>
+                <td class="text-right">[ITEM_TOTAL]</td>
+            </tr>
+            <!-- END_ITEM_ROW -->
+        </tbody>
+    </table>
+
+    <div class="totals">
+        <table>
+            <tr>
+                <td><strong>Subtotal:</strong></td>
+                <td class="text-right">[SUBTOTAL]</td>
+            </tr>
+            <tr>
+                <td><strong>Tax ([TAX_RATE]%):</strong></td>
+                <td class="text-right">[TAX_AMOUNT]</td>
+            </tr>
+            <tr>
+                <td><strong>Discount:</strong></td>
+                <td class="text-right">[DISCOUNT]</td>
+            </tr>
+            <tr>
+                <td><strong>Total:</strong></td>
+                <td class="text-right">[TOTAL_AMOUNT]</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="notes">
+        <h3>Notes</h3>
+        <p>Thank you for your business! Payment is due within [PAYMENT_TERMS] days.</p>
+        <p><strong>Payment Methods:</strong> [PAYMENT_METHODS]</p>
+        <p><strong>Bank Details:</strong><br>
+        [BANK_DETAILS]</p>
+    </div>
+
+    <div class="footer">
+        <p>[COMPANY_NAME] | [WEBSITE] | [EMAIL]</p>
+    </div>
+</body>
+</html>
