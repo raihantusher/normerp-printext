@@ -25,4 +25,5 @@ urlpatterns = [
     path('dash/', include('core.urls')),
     path('acc/', include('accounting.urls')),
     path('api/', include('api.urls')),
+    path('reports/', include('reports.urls')),
 ]
