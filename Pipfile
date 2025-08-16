@@ -5,6 +5,10 @@ name = "pypi"
 
 [packages]
 djangorestframework = "*"
+xhtml2pdf = "*"
+reportlab = "*"
+html5lib = "*"
+pillow = "*"
 
 [dev-packages]
 
