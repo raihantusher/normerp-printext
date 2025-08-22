@@ -56,7 +56,7 @@
                         <h3 class="mb-0">Customer Payment Form</h3>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="income-entry-form">
                             <!-- Customer Selection -->
                             <div class="mb-4">
                                 <label for="customerSelect" class="form-label fw-bold">Select Customer</label>
@@ -87,7 +87,7 @@
                             <!-- Payment Date -->
                             <div class="mb-4">
                                 <label for="paymentDate" class="form-label fw-bold">Payment Date</label>
-                                <input type="date" class="form-control" id="paymentDate" required>
+                                <input type="datetime-local" class="form-control" id="paymentDate" required>
                             </div>
 
                             <!-- Payment Reference -->
@@ -236,6 +236,50 @@
                   //$container.append('<div>' + JSON.stringify(data) + '</div>');
                 }
               }
+
+
+              /****
+              *
+              *  Post customer payment as income
+              *
+              */
+              $('#income-entry-form').submit(function(e) {
+                    e.preventDefault(); // Prevent default form submission
+
+                    //var formData = $(this).serialize(); // Serializes all form fields
+                    // Get form data
+                    var formData = {
+                      customer: $('#customerSelect').val(),
+                      account: $('#debitAccount').val(),
+                      amount: $('#paymentAmount').val(),
+                      date: $('#paymentDate').val(),
+                    };
+                    console.log(formData)
+
+                    // Send POST request
+                    $.ajax({
+                      type: 'POST',
+                      url: '/api/payment-list/',
+                      // headers: {
+                         //   'Authorization': 'Bearer ' + token,
+                          //  'X-Custom-Header': 'value'
+                       //},
+                      data: formData,
+                      //data: JSON.stringify(formData),
+                      success: function(response) {
+                        console.log('Success:', response);
+                          //makeEmptyForm();
+                          // $('#customerModal').modal('hide');
+                        // Handle success (e.g., show success message)
+                        //$('#success-message').show();
+                      },
+                      error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        // Handle error (e.g., show error message)
+                        //$('#error-message').text('An error occurred: ' + error).show();
+                      }
+                    });
+                  });
 
 
     });
