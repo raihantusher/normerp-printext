@@ -6,4 +6,7 @@ def __getattr__(name):
     elif name == 'AssetSerializer':
         from .Accounting_serializer import AssetSerializer
         return AssetSerializer
+    elif name == 'PaymentSerializer':
+        from .core_serializer import PaymentSerializer
+        return PaymentSerializer
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
