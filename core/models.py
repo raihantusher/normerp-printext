@@ -64,9 +64,9 @@ class Delivered(models.Model):
 class Payment(models.Model):
     account = models.ForeignKey(Accounting_Account, on_delete=models.CASCADE, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    transaction = models.OneToOneField(Transaction, on_delete=models.CASCADE)
+    transaction = models.OneToOneField(Transaction, blank=True, null=True, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(
@@ -77,8 +77,9 @@ class Payment(models.Model):
         if self.pk is None:  # or if self._state.adding
             # This is a new object being created (INSERT)
             t = Transaction.objects.create(description=f'Payment Received From {self.customer.customer_name}', reference =f'customer-{self.customer.customer_name}', is_approved=True)
+            # enter debit amount into assets
             j = Journal.objects.create( account = self.account,transaction=t,debit=self.amount)
-            acc = Accounting_Account.objects.get(pk=7)
+            acc = Accounting_Account.objects.get(pk=4) # Revenue will be credited
             j1 = Journal.objects.create( account = acc,transaction=t,credit=self.amount)
             self.transaction = t
             print("Creating a new MyModel instance.")
@@ -99,8 +100,6 @@ class Payment(models.Model):
         self.transaction.delete()
         # Call the original delete method to delete the Profile object
         return super().delete(*args, **kwargs)
-
-
 
 
 class Supplier(models.Model):
@@ -155,8 +154,6 @@ class Bill(models.Model):
         self.transaction.delete()
         # Call the original delete method to delete the Profile object
         return super().delete(*args, **kwargs)
-
-
 
 class SupplierPayment(models.Model):
     account = models.ForeignKey(Accounting_Account, on_delete=models.CASCADE, null=True) # Asset Account Credit
