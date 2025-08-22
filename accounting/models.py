@@ -131,7 +131,7 @@ class Journal(models.Model):
     debit = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     credit = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     description = models.CharField(max_length=255, blank=True, null=True)
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering = ['transaction__date', 'id']
 
